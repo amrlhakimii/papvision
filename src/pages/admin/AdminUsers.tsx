@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Search, Shield, User, ChevronDown, ChevronUp, RefreshCw } from 'lucide-react';
+import { Search, Shield, ChevronDown, ChevronUp, RefreshCw } from 'lucide-react';
 import { getAllUsers, getUserProgress, setUserRole } from '../../services/firestoreService';
 import type { UserProfile } from '../../types/auth';
 import type { UserProgress } from '../../types/progress';

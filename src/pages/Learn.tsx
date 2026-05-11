@@ -8,14 +8,6 @@ import { useProgress } from '../hooks/useProgress';
 import { useSlides } from '../hooks/useSlides';
 import { Microscope, Lock, CheckCircle, BookOpen } from 'lucide-react';
 
-const catColors: Record<CategoryId, { bg: string; text: string; activeBg: string; activeText: string }> = {
-  normal:     { bg: 'bg-slate-100',       text: 'text-slate-600',    activeBg: 'bg-brand-500',     activeText: 'text-white' },
-  infections: { bg: 'bg-slate-100',       text: 'text-slate-600',    activeBg: 'bg-brand-500',     activeText: 'text-white' },
-  benign:     { bg: 'bg-slate-100',       text: 'text-slate-600',    activeBg: 'bg-brand-500',     activeText: 'text-white' },
-  squamous:   { bg: 'bg-slate-100',       text: 'text-slate-600',    activeBg: 'bg-brand-500',     activeText: 'text-white' },
-  glandular:  { bg: 'bg-slate-100',       text: 'text-slate-600',    activeBg: 'bg-brand-500',     activeText: 'text-white' },
-};
-
 const Learn: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<CategoryId>('normal');
   const [selectedSlide, setSelectedSlide] = useState<SlideContent | null>(null);

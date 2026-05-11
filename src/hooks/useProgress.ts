@@ -75,11 +75,6 @@ export const useProgress = () => {
     }).finally(() => setLoading(false));
   }, [user]);
 
-  const persist = useCallback((updated: UserProgress) => {
-    setProgress(updated);
-    saveProgressToFirestore(updated).catch(console.error);
-  }, []);
-
   const markSlideViewed = useCallback((categoryId: CategoryId, slideId: string) => {
     setProgress(prev => {
       if (!prev) return prev;

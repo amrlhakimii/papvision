@@ -3,7 +3,6 @@ import { useProgress } from '../hooks/useProgress';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { Trophy, Zap, Eye, CheckCircle, Lock, BookOpen, Star } from 'lucide-react';
 import { categories } from '../data/categories';
-import type { Achievement } from '../types/progress';
 
 const ACHIEVEMENT_DEFS = [
   { id: 'first-slide',      title: 'First Steps',                  description: 'Viewed your first learning slide.',                    icon: '👣' },

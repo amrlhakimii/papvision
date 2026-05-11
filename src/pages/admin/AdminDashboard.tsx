@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Users, BookOpen, BrainCircuit, Database, RefreshCw, Check, AlertCircle, ShieldCheck, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { Users, BookOpen, BrainCircuit, Database, RefreshCw, Check, AlertCircle, ShieldCheck, X } from 'lucide-react';
 import { getAllUsers, getUserCount, seedCollection, getSlides, getQuestions } from '../../services/firestoreService';
 import { learningSlides } from '../../data/learningData';
 import { quizQuestions } from '../../data/quizData';
 import { categories } from '../../data/categories';
 import type { UserProfile } from '../../types/auth';
-import type { SlideContent } from '../../types/learning';
-import type { QuizQuestion } from '../../types/quiz';
 
 interface Stats {
   userCount: number;

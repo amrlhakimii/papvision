@@ -139,7 +139,7 @@ const Dashboard: React.FC = () => {
         </div>
 
         <div className="bg-white rounded-2xl border border-slate-100 divide-y divide-slate-50">
-          {categories.map((cat, i) => {
+          {categories.map((cat) => {
             const c = progress?.categories[cat.id];
             const score = c?.highestQuizScore ?? 0;
             const locked = !(c?.unlocked ?? false);

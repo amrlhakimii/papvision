@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Plus, Pencil, Trash2, Search, X, Save, AlertCircle } from 'lucide-react';
 import { ImageUploader } from '../../components/admin/ImageUploader';
-import { getQuestions, saveQuestion, updateQuestion, deleteQuestion } from '../../services/firestoreService';
+import { getQuestions, saveQuestion, deleteQuestion } from '../../services/firestoreService';
 import type { QuizQuestion, DifficultyLevel } from '../../types/quiz';
 import type { CategoryId } from '../../types/learning';
 import { categories } from '../../data/categories';

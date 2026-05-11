@@ -1,7 +1,7 @@
 import {
-  collection, doc, getDocs, getDoc, setDoc, addDoc,
-  updateDoc, deleteDoc, query, orderBy, Timestamp,
-  writeBatch, where, getCountFromServer,
+  collection, doc, getDocs, getDoc, setDoc,
+  updateDoc, deleteDoc, query, orderBy,
+  writeBatch, getCountFromServer,
 } from 'firebase/firestore';
 import { db } from './firebase';
 import type { SlideContent, Category } from '../types/learning';
