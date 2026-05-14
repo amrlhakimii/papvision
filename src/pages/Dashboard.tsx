@@ -55,38 +55,38 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4">
-        <div className="bg-white rounded-2xl border border-slate-100 p-5">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Competency</span>
-            <div className="w-7 h-7 rounded-lg bg-brand-50 flex items-center justify-center">
+      <div className="grid grid-cols-3 gap-2 sm:gap-4">
+        <div className="bg-white rounded-2xl border border-slate-100 p-3 sm:p-5">
+          <div className="flex items-center justify-between mb-2 sm:mb-3">
+            <span className="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wide sm:tracking-widest">Competency</span>
+            <div className="w-7 h-7 rounded-lg bg-brand-50 hidden sm:flex items-center justify-center">
               <Trophy size={13} className="text-brand-500" />
             </div>
           </div>
-          <p className="text-3xl font-bold text-slate-900">{overallScore}<span className="text-base font-medium text-slate-400 ml-0.5">%</span></p>
-          <p className="text-xs text-slate-400 mt-1">Average quiz score</p>
+          <p className="text-xl sm:text-3xl font-bold text-slate-900">{overallScore}<span className="text-sm sm:text-base font-medium text-slate-400 ml-0.5">%</span></p>
+          <p className="text-[10px] sm:text-xs text-slate-400 mt-1">Avg score</p>
         </div>
 
-        <div className="bg-white rounded-2xl border border-slate-100 p-5">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Slides</span>
-            <div className="w-7 h-7 rounded-lg bg-accent-50 flex items-center justify-center">
+        <div className="bg-white rounded-2xl border border-slate-100 p-3 sm:p-5">
+          <div className="flex items-center justify-between mb-2 sm:mb-3">
+            <span className="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wide sm:tracking-widest">Slides</span>
+            <div className="w-7 h-7 rounded-lg bg-accent-50 hidden sm:flex items-center justify-center">
               <Eye size={13} className="text-accent-500" />
             </div>
           </div>
-          <p className="text-3xl font-bold text-slate-900">{totalViewed}</p>
-          <p className="text-xs text-slate-400 mt-1">Images studied</p>
+          <p className="text-xl sm:text-3xl font-bold text-slate-900">{totalViewed}</p>
+          <p className="text-[10px] sm:text-xs text-slate-400 mt-1">Studied</p>
         </div>
 
-        <div className="bg-white rounded-2xl border border-slate-100 p-5">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Modules</span>
-            <div className="w-7 h-7 rounded-lg bg-green-50 flex items-center justify-center">
+        <div className="bg-white rounded-2xl border border-slate-100 p-3 sm:p-5">
+          <div className="flex items-center justify-between mb-2 sm:mb-3">
+            <span className="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wide sm:tracking-widest">Modules</span>
+            <div className="w-7 h-7 rounded-lg bg-green-50 hidden sm:flex items-center justify-center">
               <CheckCircle size={13} className="text-green-500" />
             </div>
           </div>
-          <p className="text-3xl font-bold text-slate-900">{modulesCompleted}<span className="text-base font-medium text-slate-400 ml-1">/ 5</span></p>
-          <p className="text-xs text-slate-400 mt-1">Completed ≥80%</p>
+          <p className="text-xl sm:text-3xl font-bold text-slate-900">{modulesCompleted}<span className="text-sm sm:text-base font-medium text-slate-400 ml-1">/ 5</span></p>
+          <p className="text-[10px] sm:text-xs text-slate-400 mt-1">Done ≥80%</p>
         </div>
       </div>
 

@@ -81,9 +81,9 @@ const Progress: React.FC = () => {
                       {locked ? <Lock size={13} /> : done ? <CheckCircle size={13} /> : <BookOpen size={13} />}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-slate-800">{cat.title}</span>
-                        <div className="flex items-center gap-2">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-sm font-medium text-slate-800 truncate">{cat.title}</span>
+                        <div className="flex items-center gap-2 shrink-0">
                           {done && <span className="text-xs font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded-full">Passed</span>}
                           {locked && <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">Locked</span>}
                           <span className="text-sm font-bold text-slate-900">{score}%</span>

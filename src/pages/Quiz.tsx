@@ -80,12 +80,12 @@ const Quiz: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 text-center">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
             {(['beginner', 'intermediate', 'advanced'] as const).map(level => {
               const count = filteredQuestions.filter(q => q.difficulty === level).length;
               return (
-                <div key={level} className="bg-slate-50 rounded-xl p-3 border border-slate-100">
-                  <Badge variant={level === 'beginner' ? 'success' : level === 'intermediate' ? 'warning' : 'danger'} className="mb-2">
+                <div key={level} className="bg-slate-50 rounded-xl p-2 sm:p-3 border border-slate-100">
+                  <Badge size="sm" variant={level === 'beginner' ? 'success' : level === 'intermediate' ? 'warning' : 'danger'} className="mb-2">
                     {level.charAt(0).toUpperCase() + level.slice(1)}
                   </Badge>
                   <p className="text-lg font-bold text-slate-900">{count}</p>

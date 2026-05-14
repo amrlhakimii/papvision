@@ -39,18 +39,18 @@ const ResultScreen: React.FC<{
       <h2 className="text-4xl font-display font-bold text-slate-900 mb-2">{title}</h2>
       <p className="text-slate-500 mb-8">Here is your performance summary.</p>
 
-      <div className="grid grid-cols-3 gap-4 mb-8">
-        <div className="bg-slate-50 rounded-2xl border border-slate-100 p-4">
-          <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Score</p>
-          <p className="text-3xl font-bold text-slate-900">{score}/{total}</p>
+      <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-8">
+        <div className="bg-slate-50 rounded-2xl border border-slate-100 p-3 sm:p-4">
+          <p className="text-[10px] sm:text-xs text-slate-500 uppercase tracking-wider mb-1">Score</p>
+          <p className="text-xl sm:text-3xl font-bold text-slate-900">{score}/{total}</p>
         </div>
-        <div className="bg-slate-50 rounded-2xl border border-slate-100 p-4">
-          <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Accuracy</p>
-          <p className={`text-3xl font-bold ${accuracy >= 80 ? 'text-green-600' : accuracy >= 60 ? 'text-amber-600' : 'text-red-600'}`}>{accuracy}%</p>
+        <div className="bg-slate-50 rounded-2xl border border-slate-100 p-3 sm:p-4">
+          <p className="text-[10px] sm:text-xs text-slate-500 uppercase tracking-wider mb-1">Accuracy</p>
+          <p className={`text-xl sm:text-3xl font-bold ${accuracy >= 80 ? 'text-green-600' : accuracy >= 60 ? 'text-amber-600' : 'text-red-600'}`}>{accuracy}%</p>
         </div>
-        <div className="bg-slate-50 rounded-2xl border border-slate-100 p-4">
-          <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Result</p>
-          <p className="text-3xl font-bold text-brand-600">{accuracy >= 80 ? '🏆' : accuracy >= 60 ? '📚' : '💪'}</p>
+        <div className="bg-slate-50 rounded-2xl border border-slate-100 p-3 sm:p-4">
+          <p className="text-[10px] sm:text-xs text-slate-500 uppercase tracking-wider mb-1">Result</p>
+          <p className="text-xl sm:text-3xl font-bold text-brand-600">{accuracy >= 80 ? '🏆' : accuracy >= 60 ? '📚' : '💪'}</p>
         </div>
       </div>
 

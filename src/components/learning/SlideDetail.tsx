@@ -22,8 +22,8 @@ export const SlideDetail: React.FC<SlideDetailProps> = ({ slide, onBack }) => {
 
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <div className="flex items-center gap-3 mb-2">
-            <h2 className="text-2xl font-display font-bold text-slate-900">{slide.title}</h2>
+          <div className="flex items-center flex-wrap gap-x-3 gap-y-1 mb-2">
+            <h2 className="text-xl sm:text-2xl font-display font-bold text-slate-900">{slide.title}</h2>
             <Badge variant="primary">Slide Viewer</Badge>
           </div>
           <p className="text-slate-600">{slide.diagnosticNotes}</p>
