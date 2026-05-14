@@ -121,7 +121,7 @@ const TimedMode: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       </div>
 
       <div className="w-full bg-slate-200 rounded-full h-2 mb-6">
-        <div className="bg-brand-500 h-2 rounded-full transition-all" style={{ width: `${((currentIndex) / questions.length) * 100}%` }} />
+        <div className="bg-brand-500 h-2 rounded-full transition-all" style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -293,7 +293,7 @@ const RandomMode: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       </div>
 
       <div className="w-full bg-slate-200 rounded-full h-2 mb-6">
-        <div className="bg-accent-500 h-2 rounded-full transition-all" style={{ width: `${(currentIndex / questions.length) * 100}%` }} />
+        <div className="bg-accent-500 h-2 rounded-full transition-all" style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

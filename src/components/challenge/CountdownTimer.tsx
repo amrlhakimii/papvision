@@ -16,23 +16,16 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
   const [seconds, setSeconds] = useState(initialSeconds);
 
   useEffect(() => {
-    let interval: ReturnType<typeof setInterval>;
-    
-    if (isRunning && seconds > 0) {
-      interval = setInterval(() => {
-        setSeconds(prev => {
-          if (prev <= 1) {
-            clearInterval(interval);
-            onTimeUp();
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    }
-    
+    if (!isRunning) return;
+    const interval = setInterval(() => {
+      setSeconds(prev => (prev <= 1 ? 0 : prev - 1));
+    }, 1000);
     return () => clearInterval(interval);
-  }, [isRunning, seconds, onTimeUp]);
+  }, [isRunning]);
+
+  useEffect(() => {
+    if (seconds === 0 && isRunning) onTimeUp();
+  }, [seconds, isRunning, onTimeUp]);
 
   // Format MM:SS
   const mins = Math.floor(seconds / 60);

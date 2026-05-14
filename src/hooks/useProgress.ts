@@ -1,9 +1,28 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import type { UserProgress, CategoryProgress } from '../types/progress';
 import type { CategoryId } from '../types/learning';
 import type { QuizResult } from '../types/quiz';
 import { useAuth } from './useAuth';
 import { loadProgressFromFirestore, saveProgressToFirestore } from '../services/firestoreService';
+
+const storageKey = (uid: string) => `papvision_progress_${uid}`;
+
+const loadFromLocalStorage = (uid: string): UserProgress | null => {
+  try {
+    const raw = localStorage.getItem(storageKey(uid));
+    return raw ? (JSON.parse(raw) as UserProgress) : null;
+  } catch {
+    return null;
+  }
+};
+
+const saveToLocalStorage = (progress: UserProgress): void => {
+  try {
+    localStorage.setItem(storageKey(progress.userId), JSON.stringify(progress));
+  } catch {
+    // ignore quota/private mode errors
+  }
+};
 
 const defaultCategoryProgress = (id: CategoryId, totalSlides: number, unlocked: boolean): CategoryProgress => ({
   categoryId: id,
@@ -64,16 +83,29 @@ export const useProgress = () => {
   const { user } = useAuth();
   const [progress, setProgress] = useState<UserProgress | null>(null);
   const [loading, setLoading] = useState(true);
+  const isLoadedRef = useRef(false);
 
   useEffect(() => {
-    if (!user) { setProgress(null); setLoading(false); return; }
+    if (!user) { setProgress(null); setLoading(false); isLoadedRef.current = false; return; }
+    isLoadedRef.current = false;
     setLoading(true);
-    loadProgressFromFirestore(user.uid).then(p => {
-      setProgress(p ?? buildDefaultProgress(user.uid));
-    }).catch(() => {
-      setProgress(buildDefaultProgress(user.uid));
-    }).finally(() => setLoading(false));
+    loadProgressFromFirestore(user.uid)
+      .then(p => {
+        setProgress(p ?? loadFromLocalStorage(user.uid) ?? buildDefaultProgress(user.uid));
+      })
+      .catch(() => {
+        setProgress(loadFromLocalStorage(user.uid) ?? buildDefaultProgress(user.uid));
+      })
+      .finally(() => setLoading(false));
   }, [user]);
+
+  // Save on every progress change, but skip the initial load
+  useEffect(() => {
+    if (!progress) return;
+    if (!isLoadedRef.current) { isLoadedRef.current = true; return; }
+    saveToLocalStorage(progress);
+    saveProgressToFirestore(progress).catch(console.error);
+  }, [progress]);
 
   const markSlideViewed = useCallback((categoryId: CategoryId, slideId: string) => {
     setProgress(prev => {
@@ -86,9 +118,7 @@ export const useProgress = () => {
         lastActive: Date.now(),
         categories: { ...prev.categories, [categoryId]: { ...cat, completedSlides: [...cat.completedSlides, slideId] } },
       };
-      updated = applyUnlocks(applyAchievements(updated));
-      saveProgressToFirestore(updated).catch(console.error);
-      return updated;
+      return applyUnlocks(applyAchievements(updated));
     });
   }, []);
 
@@ -105,9 +135,7 @@ export const useProgress = () => {
         lastActive: Date.now(),
         categories: { ...prev.categories, [categoryId]: { ...cat, highestQuizScore: Math.max(accuracy, cat.highestQuizScore) } },
       };
-      updated = applyUnlocks(applyAchievements(updated));
-      saveProgressToFirestore(updated).catch(console.error);
-      return updated;
+      return applyUnlocks(applyAchievements(updated));
     });
   }, []);
 

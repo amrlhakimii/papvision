@@ -84,6 +84,6 @@ export const useQuiz = (questions: QuizQuestion[]) => {
     resetQuiz,
     setFinished,
     getResult,
-    progress: ((currentIndex) / questions.length) * 100
+    progress: ((currentIndex + 1) / questions.length) * 100
   };
 };

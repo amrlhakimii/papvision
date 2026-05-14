@@ -145,6 +145,7 @@ const Dashboard: React.FC = () => {
             const locked = !(c?.unlocked ?? false);
             const viewed = c?.completedSlides.length ?? 0;
             const total = c?.totalSlides ?? 0;
+            const slidePercent = total > 0 ? Math.round((viewed / total) * 100) : 0;
 
             return (
               <div key={cat.id} className={`flex items-center gap-4 px-5 py-4 ${locked ? 'opacity-50' : ''}`}>
@@ -162,12 +163,12 @@ const Dashboard: React.FC = () => {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-sm font-medium text-slate-800 truncate">{cat.title}</span>
-                    <span className="text-sm font-bold text-slate-700 ml-4 shrink-0">{score}%</span>
+                    <span className="text-sm font-bold text-slate-700 ml-4 shrink-0">{score > 0 ? `Quiz: ${score}%` : `${slidePercent}%`}</span>
                   </div>
                   <div className="w-full bg-slate-100 rounded-full h-1.5">
                     <div
                       className={`h-1.5 rounded-full transition-all duration-700 ${score >= 80 ? 'bg-green-400' : 'bg-brand-400'}`}
-                      style={{ width: `${score}%` }}
+                      style={{ width: `${Math.max(slidePercent, score)}%` }}
                     />
                   </div>
                 </div>
