@@ -116,7 +116,7 @@ const TimedMode: React.FC<{ onBack: () => void }> = ({ onBack }) => {
         <Button variant="ghost" onClick={onBack} className="gap-2">
           <ArrowLeft size={18} /> Exit
         </Button>
-        <CountdownTimer initialSeconds={300} onTimeUp={handleTimeUp} isRunning={!isGameOver} />
+        <CountdownTimer initialSeconds={600} onTimeUp={handleTimeUp} isRunning={!isGameOver} />
         <Badge variant="primary">Q {currentIndex + 1}/{questions.length}</Badge>
       </div>
 
@@ -363,9 +363,9 @@ const Challenge: React.FC = () => {
             <Clock size={24} />
           </div>
           <h3 className="text-xl font-bold mb-2">Timed Quiz</h3>
-          <p className="text-slate-600 mb-6 flex-1">Complete all cases against a 5-minute countdown. Accuracy and speed both count. Answer after viewing feedback on each case.</p>
+          <p className="text-slate-600 mb-6 flex-1">Complete all cases against a 10-minute countdown. Accuracy and speed both count. Answer after viewing feedback on each case.</p>
           <div className="flex items-center gap-2 mb-4">
-            <Badge variant="primary">5 min timer</Badge>
+            <Badge variant="primary">10 min timer</Badge>
             <Badge variant="neutral">{quizQuestions.length} cases</Badge>
           </div>
           <Button className="w-full" onClick={() => setActiveMode('timed')}>
