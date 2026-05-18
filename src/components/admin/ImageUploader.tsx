@@ -9,17 +9,42 @@ interface ImageUploaderProps {
   onUploaded: (url: string) => void;
 }
 
+type UploadStatus = 'compressing' | 'uploading' | 'processing' | null;
+
+const compressImage = (file: File, maxPx = 1600, quality = 0.85): Promise<File> =>
+  new Promise((resolve, reject) => {
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+      let { width, height } = img;
+      if (width > maxPx || height > maxPx) {
+        if (width >= height) { height = Math.round(height * maxPx / width); width = maxPx; }
+        else { width = Math.round(width * maxPx / height); height = maxPx; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      canvas.getContext('2d')!.drawImage(img, 0, 0, width, height);
+      canvas.toBlob(
+        blob => blob
+          ? resolve(new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), { type: 'image/jpeg' }))
+          : reject(new Error('Compression failed')),
+        'image/jpeg',
+        quality
+      );
+    };
+    img.onerror = () => { URL.revokeObjectURL(objectUrl); reject(new Error('Could not load image')); };
+    img.src = objectUrl;
+  });
+
 export const ImageUploader: React.FC<ImageUploaderProps> = ({ currentUrl, folder, onUploaded }) => {
   const [progress, setProgress] = useState<number | null>(null);
+  const [uploadStatus, setUploadStatus] = useState<UploadStatus>(null);
   const [error, setError] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleFile = (file: File) => {
-    const MAX_MB = 5;
-    if (file.size > MAX_MB * 1024 * 1024) {
-      setError(`File too large. Max ${MAX_MB}MB.`);
-      return;
-    }
+  const handleFile = async (file: File) => {
     if (!file.type.startsWith('image/')) {
       setError('Please select an image file.');
       return;
@@ -27,20 +52,30 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ currentUrl, folder
 
     setError('');
     setProgress(0);
+    setUploadStatus('compressing');
 
-    const ext = file.name.split('.').pop() ?? 'jpg';
-    const filename = `${Date.now()}.${ext}`;
+    let uploadFile = file;
+    try {
+      uploadFile = await compressImage(file);
+    } catch {
+      // Fall back to original if compression fails
+    }
+
+    setUploadStatus('uploading');
+    const filename = `${Date.now()}.jpg`;
     const storageRef = ref(storage, `${folder}/${filename}`);
-    const task = uploadBytesResumable(storageRef, file);
+    const task = uploadBytesResumable(storageRef, uploadFile);
 
     task.on(
       'state_changed',
       snap => setProgress(Math.round((snap.bytesTransferred / snap.totalBytes) * 100)),
-      err => { setError(err.message); setProgress(null); },
+      err => { setError(err.message); setProgress(null); setUploadStatus(null); },
       async () => {
+        setUploadStatus('processing');
         const url = await getDownloadURL(task.snapshot.ref);
         onUploaded(url);
         setProgress(null);
+        setUploadStatus(null);
       }
     );
   };
@@ -54,9 +89,11 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ currentUrl, folder
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) handleFile(file);
+    // Reset input so the same file can be re-selected if needed
+    e.target.value = '';
   };
 
-  const isUploading = progress !== null;
+  const isBusy = uploadStatus !== null;
 
   return (
     <div className="space-y-2">
@@ -79,23 +116,33 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ currentUrl, folder
       <div
         onDrop={handleDrop}
         onDragOver={e => e.preventDefault()}
-        onClick={() => !isUploading && inputRef.current?.click()}
+        onClick={() => !isBusy && inputRef.current?.click()}
         className={`w-full border-2 border-dashed rounded-lg p-6 flex flex-col items-center justify-center gap-2 transition-colors cursor-pointer ${
-          isUploading
+          isBusy
             ? 'border-brand-500 bg-brand-950/20 cursor-wait'
             : 'border-slate-700 hover:border-brand-500 hover:bg-slate-800/50'
         }`}
       >
-        {isUploading ? (
+        {isBusy ? (
           <>
             <Loader2 size={24} className="text-brand-400 animate-spin" />
-            <p className="text-sm text-slate-300">Uploading... {progress}%</p>
-            <div className="w-full bg-slate-700 rounded-full h-1.5 mt-1">
-              <div
-                className="bg-brand-500 h-1.5 rounded-full transition-all duration-200"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
+            {uploadStatus === 'compressing' && (
+              <p className="text-sm text-slate-300">Compressing image...</p>
+            )}
+            {uploadStatus === 'uploading' && (
+              <>
+                <p className="text-sm text-slate-300">Uploading... {progress}%</p>
+                <div className="w-full bg-slate-700 rounded-full h-1.5 mt-1">
+                  <div
+                    className="bg-brand-500 h-1.5 rounded-full transition-all duration-200"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+              </>
+            )}
+            {uploadStatus === 'processing' && (
+              <p className="text-sm text-slate-300">Processing...</p>
+            )}
           </>
         ) : (
           <>
@@ -106,7 +153,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ currentUrl, folder
               <p className="text-sm font-medium text-slate-300">
                 {currentUrl ? 'Replace image' : 'Upload image'}
               </p>
-              <p className="text-xs text-slate-500 mt-0.5">Click or drag & drop · JPG, PNG, WEBP · max 5MB</p>
+              <p className="text-xs text-slate-500 mt-0.5">Click or drag & drop · JPG, PNG, WEBP · auto-compressed</p>
             </div>
           </>
         )}

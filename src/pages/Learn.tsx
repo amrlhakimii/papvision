@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { SlideCard } from '../components/learning/SlideCard';
 import { SlideDetail } from '../components/learning/SlideDetail';
 import { EmptyState } from '../components/ui/EmptyState';
@@ -12,7 +12,16 @@ const Learn: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<CategoryId>('normal');
   const [selectedSlide, setSelectedSlide] = useState<SlideContent | null>(null);
   const { progress, markSlideViewed } = useProgress();
-  const { slides } = useSlides();
+  const { slides, loading: slidesLoading } = useSlides();
+
+  // Keep selectedSlide in sync with Firestore data so cue edits are reflected
+  useEffect(() => {
+    if (selectedSlide) {
+      const updated = slides.find(s => s.id === selectedSlide.id);
+      if (updated) setSelectedSlide(updated);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slides]);
 
   const activeSlides = useMemo(() => slides.filter(s => s.categoryId === selectedCategory), [slides, selectedCategory]);
   const activeCat = useMemo(() => categories.find(c => c.id === selectedCategory), [selectedCategory]);
@@ -103,6 +112,18 @@ const Learn: React.FC = () => {
           title="Category Locked"
           description="Complete earlier modules with ≥80% quiz score to unlock this category."
         />
+      ) : slidesLoading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="rounded-2xl border border-slate-200 bg-white overflow-hidden animate-pulse">
+              <div className="aspect-[4/3] bg-slate-200" />
+              <div className="p-4 space-y-2">
+                <div className="h-4 bg-slate-200 rounded w-3/4" />
+                <div className="h-3 bg-slate-100 rounded w-1/2" />
+              </div>
+            </div>
+          ))}
+        </div>
       ) : activeSlides.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {activeSlides.map(slide => (
