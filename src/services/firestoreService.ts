@@ -96,8 +96,13 @@ export const seedCollection = async <T extends { id: string }>(
   collectionName: string,
   items: T[]
 ): Promise<void> => {
+  // Only seed documents that don't exist yet — preserves any admin edits
+  const existing = await getDocs(collection(db, collectionName));
+  const existingIds = new Set(existing.docs.map(d => d.id));
+  const newItems = items.filter(item => !existingIds.has(item.id));
+  if (newItems.length === 0) return;
   const batch = writeBatch(db);
-  items.forEach(item => {
+  newItems.forEach(item => {
     batch.set(doc(db, collectionName, item.id), item);
   });
   await batch.commit();
