@@ -175,7 +175,7 @@ const AdminDashboard: React.FC = () => {
           <div className="flex items-start justify-between gap-3">
             <div>
               <p className="text-sm font-semibold text-white mb-1">Seed Firestore</p>
-              <p className="text-xs text-slate-400 leading-relaxed">Push all slides, questions, and categories from code to Firestore. Safe to re-run — overwrites matching IDs.</p>
+              <p className="text-xs text-slate-400 leading-relaxed">Adds any missing slides, questions, and categories to Firestore. Skips documents that already exist — your admin edits are safe.</p>
             </div>
             <Database size={18} className="text-slate-500 shrink-0 mt-0.5" />
           </div>
@@ -194,7 +194,7 @@ const AdminDashboard: React.FC = () => {
           <div className="flex items-start justify-between gap-3">
             <div>
               <p className="text-sm font-semibold text-white mb-1">Verify Data</p>
-              <p className="text-xs text-slate-400 leading-relaxed">Compare every slide and question in Firestore against the hardcoded files. Reports missing items and field differences.</p>
+              <p className="text-xs text-slate-400 leading-relaxed">Compare Firestore against the default hardcoded data. Slides edited via the admin panel will show as mismatches — this is expected.</p>
             </div>
             <ShieldCheck size={18} className="text-slate-500 shrink-0 mt-0.5" />
           </div>
@@ -242,7 +242,7 @@ const AdminDashboard: React.FC = () => {
                     <p className="text-xs text-slate-600 mt-0.5 font-mono">{m.id}</p>
                   </div>
                   {m.issue === 'Field mismatch' && (
-                    <span className="ml-auto text-xs text-slate-500 shrink-0">Re-seed to fix</span>
+                    <span className="ml-auto text-xs text-slate-500 shrink-0">Edited via admin</span>
                   )}
                 </div>
               ))}
@@ -252,7 +252,7 @@ const AdminDashboard: React.FC = () => {
           {!allGood && (
             <div className="px-5 py-3 border-t border-slate-800 bg-slate-950/50">
               <p className="text-xs text-slate-500">
-                To fix mismatches — click <span className="text-white font-medium">Seed Data</span> above (safe to re-run, it overwrites by ID).
+                <span className="text-white font-medium">Field mismatches</span> are normal for slides edited via the admin panel. Use <span className="text-white font-medium">Seed Data</span> only to add slides that are missing from Firestore entirely.
               </p>
             </div>
           )}
