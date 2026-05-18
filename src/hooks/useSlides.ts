@@ -4,7 +4,7 @@ import { getSlides } from '../services/firestoreService';
 import { learningSlides as staticSlides } from '../data/learningData';
 
 export const useSlides = () => {
-  const [slides, setSlides] = useState<SlideContent[]>(staticSlides);
+  const [slides, setSlides] = useState<SlideContent[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
