@@ -1,6 +1,4 @@
 import React, { useRef, useState } from 'react';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { storage } from '../../services/firebase';
 import { Upload, X, ImageIcon, Loader2 } from 'lucide-react';
 
 interface ImageUploaderProps {
@@ -9,9 +7,13 @@ interface ImageUploaderProps {
   onUploaded: (url: string) => void;
 }
 
-type UploadStatus = 'compressing' | 'uploading' | 'processing' | null;
+type UploadStatus = 'compressing' | 'uploading' | null;
 
-const compressImage = (file: File, maxPx = 1600, quality = 0.85): Promise<File> =>
+const CLOUD_NAME = 'dlcfsklgr';
+const UPLOAD_PRESET = 'ecl7xqgu';
+const MAX_FILE_SIZE = 15 * 1024 * 1024;
+
+const compressImage = (file: File, maxPx = 1200, quality = 0.82): Promise<File> =>
   new Promise((resolve, reject) => {
     const img = new Image();
     const objectUrl = URL.createObjectURL(file);
@@ -26,13 +28,18 @@ const compressImage = (file: File, maxPx = 1600, quality = 0.85): Promise<File> 
       canvas.width = width;
       canvas.height = height;
       canvas.getContext('2d')!.drawImage(img, 0, 0, width, height);
-      canvas.toBlob(
+
+      const toJPEG = () => canvas.toBlob(
         blob => blob
           ? resolve(new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), { type: 'image/jpeg' }))
           : reject(new Error('Compression failed')),
-        'image/jpeg',
-        quality
+        'image/jpeg', quality
       );
+
+      canvas.toBlob(blob => {
+        if (blob) resolve(new File([blob], file.name.replace(/\.[^.]+$/, '.webp'), { type: 'image/webp' }));
+        else toJPEG();
+      }, 'image/webp', quality);
     };
     img.onerror = () => { URL.revokeObjectURL(objectUrl); reject(new Error('Could not load image')); };
     img.src = objectUrl;
@@ -43,10 +50,16 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ currentUrl, folder
   const [uploadStatus, setUploadStatus] = useState<UploadStatus>(null);
   const [error, setError] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+  const xhrRef = useRef<XMLHttpRequest | null>(null);
 
   const handleFile = async (file: File) => {
     if (!file.type.startsWith('image/')) {
       setError('Please select an image file.');
+      return;
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+      setError('Image too large (max 15 MB). Please resize it first.');
       return;
     }
 
@@ -62,22 +75,40 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ currentUrl, folder
     }
 
     setUploadStatus('uploading');
-    const filename = `${Date.now()}.jpg`;
-    const storageRef = ref(storage, `${folder}/${filename}`);
-    const task = uploadBytesResumable(storageRef, uploadFile);
 
-    task.on(
-      'state_changed',
-      snap => setProgress(Math.round((snap.bytesTransferred / snap.totalBytes) * 100)),
-      err => { setError(err.message); setProgress(null); setUploadStatus(null); },
-      async () => {
-        setUploadStatus('processing');
-        const url = await getDownloadURL(task.snapshot.ref);
-        onUploaded(url);
-        setProgress(null);
-        setUploadStatus(null);
+    const formData = new FormData();
+    formData.append('file', uploadFile);
+    formData.append('upload_preset', UPLOAD_PRESET);
+    formData.append('folder', folder);
+
+    const xhr = new XMLHttpRequest();
+    xhrRef.current = xhr;
+
+    xhr.upload.onprogress = e => {
+      if (e.lengthComputable) setProgress(Math.round((e.loaded / e.total) * 100));
+    };
+
+    xhr.onload = () => {
+      xhrRef.current = null;
+      if (xhr.status === 200) {
+        const data = JSON.parse(xhr.responseText);
+        onUploaded(data.secure_url);
+      } else {
+        setError('Upload failed. Please try again.');
       }
-    );
+      setProgress(null);
+      setUploadStatus(null);
+    };
+
+    xhr.onerror = () => {
+      xhrRef.current = null;
+      setError('Upload failed. Please check your connection.');
+      setProgress(null);
+      setUploadStatus(null);
+    };
+
+    xhr.open('POST', `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`);
+    xhr.send(formData);
   };
 
   const handleDrop = (e: React.DragEvent) => {
@@ -89,7 +120,6 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ currentUrl, folder
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) handleFile(file);
-    // Reset input so the same file can be re-selected if needed
     e.target.value = '';
   };
 
@@ -139,9 +169,6 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ currentUrl, folder
                   />
                 </div>
               </>
-            )}
-            {uploadStatus === 'processing' && (
-              <p className="text-sm text-slate-300">Processing...</p>
             )}
           </>
         ) : (
