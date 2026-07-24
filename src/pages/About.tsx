@@ -56,8 +56,9 @@ const researchTeam: TeamMember[] = [
   },
   {
     name: 'Amirul Hakimi Abdullah Sani',
-    faculty: 'Faculty of Computer and Mathematical Sciences, Universiti Teknologi MARA (UiTM), Malaysia',
-    roles: ['Platform Development', 'System Integration'],
+    faculty: 'Software Engineer, The Access Group APAC',
+    group: 'Faculty of Computer and Mathematical Sciences, Universiti Teknologi MARA (UiTM), Malaysia',
+    roles: ['Full-Stack Developer', 'Platform Development', 'System Integration'],
     photo: '/images/team/amirul-hakimi-abdullah-sani.png',
   },
 ];
