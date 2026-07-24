@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, BookOpen, BrainCircuit, Users, LogOut, Microscope, Menu, Crosshair } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
+import { Footer } from './Footer';
 
 const navItems = [
   { path: '/admin',              label: 'Dashboard',  icon: LayoutDashboard, end: true },
@@ -109,8 +110,11 @@ export const AdminLayout: React.FC = () => {
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto p-6">
-          <Outlet />
+        <main className="flex-1 overflow-y-auto p-6 flex flex-col">
+          <div className="flex-1">
+            <Outlet />
+          </div>
+          <Footer />
         </main>
       </div>
     </div>

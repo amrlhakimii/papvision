@@ -10,6 +10,7 @@ import Learn from './pages/Learn';
 import Quiz from './pages/Quiz';
 import Challenge from './pages/Challenge';
 import Progress from './pages/Progress';
+import About from './pages/About';
 import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 
@@ -42,6 +43,7 @@ const App: React.FC = () => {
         <Route path="quiz"      element={<ProtectedRoute><Quiz /></ProtectedRoute>} />
         <Route path="challenge" element={<ProtectedRoute><Challenge /></ProtectedRoute>} />
         <Route path="progress"  element={<ProtectedRoute><Progress /></ProtectedRoute>} />
+        <Route path="about"     element={<About />} />
         <Route path="login"     element={<Login />} />
       </Route>
 

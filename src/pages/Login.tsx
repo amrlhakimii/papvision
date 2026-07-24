@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Microscope, GraduationCap, ShieldCheck } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+import { Footer } from '../components/layout/Footer';
 
 const GoogleIcon = () => (
   <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg">
@@ -83,7 +84,8 @@ const Login: React.FC = () => {
       </div>
 
       {/* Right form panel */}
-      <div className="flex-1 flex items-center justify-center p-6 bg-surface-50">
+      <div className="flex-1 flex flex-col p-6 bg-surface-50">
+        <div className="flex-1 flex items-center justify-center">
         <div className="w-full max-w-sm">
 
           {/* Mobile logo */}
@@ -165,6 +167,8 @@ const Login: React.FC = () => {
               : 'Sign in to track your progress across devices.'}
           </p>
         </div>
+        </div>
+        <Footer />
       </div>
     </div>
   );

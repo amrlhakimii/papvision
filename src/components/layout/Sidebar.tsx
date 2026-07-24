@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, BookOpen, BrainCircuit, Target, LineChart } from 'lucide-react';
+import { LayoutDashboard, BookOpen, BrainCircuit, Target, LineChart, Info } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface SidebarProps {
@@ -14,6 +14,7 @@ const navItems = [
   { name: 'Quiz',            path: '/quiz',      icon: BrainCircuit },
   { name: 'Challenge',       path: '/challenge', icon: Target },
   { name: 'My Progress',     path: '/progress',  icon: LineChart },
+  { name: 'About',           path: '/about',     icon: Info },
 ];
 
 const NavItem: React.FC<{ item: typeof navItems[0]; onClick?: () => void }> = ({ item, onClick }) => (
