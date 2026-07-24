@@ -44,7 +44,7 @@ export const SlideDetail: React.FC<SlideDetailProps> = ({ slide, onBack }) => {
         </div>
 
         <div className="space-y-6">
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-black/5 p-6 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
             <h3 className="font-display font-semibold text-lg text-slate-800 mb-4 border-b border-slate-100 pb-2">
               Cellular Features
             </h3>
@@ -58,7 +58,7 @@ export const SlideDetail: React.FC<SlideDetailProps> = ({ slide, onBack }) => {
             </ul>
           </div>
 
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-black/5 p-6 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
             <h3 className="font-display font-semibold text-lg text-slate-800 mb-4 border-b border-slate-100 pb-2">
               Nuclear Features
             </h3>
@@ -72,7 +72,7 @@ export const SlideDetail: React.FC<SlideDetailProps> = ({ slide, onBack }) => {
             </ul>
           </div>
 
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-black/5 p-6 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
             <h3 className="font-display font-semibold text-lg text-slate-800 mb-4 border-b border-slate-100 pb-2">
               Background
             </h3>

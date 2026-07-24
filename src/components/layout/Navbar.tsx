@@ -17,7 +17,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
   };
 
   return (
-    <header className="sticky top-0 z-30 h-16 bg-white border-b border-slate-200 flex items-center px-4 md:px-6 gap-4">
+    <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-md border-b border-black/5 flex items-center px-4 md:px-6 gap-4">
       {/* Mobile menu */}
       {user && (
         <button

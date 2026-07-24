@@ -8,11 +8,11 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className = '', variant = 'default', padding = 'md', children, ...props }, ref) => {
-    const base = 'rounded-2xl bg-white border border-slate-100 overflow-hidden';
+    const base = 'rounded-2xl bg-white/90 backdrop-blur-sm border border-black/5 overflow-hidden';
 
     const variants = {
-      default:     'shadow-sm',
-      interactive: 'shadow-sm cursor-pointer transition-all duration-200 hover:shadow-md hover:border-slate-200 hover:-translate-y-0.5',
+      default:     'shadow-[0_4px_24px_rgba(0,0,0,0.06)]',
+      interactive: 'shadow-[0_4px_24px_rgba(0,0,0,0.06)] cursor-pointer transition-all duration-200 hover:shadow-[0_8px_28px_rgba(0,0,0,0.09)] hover:-translate-y-0.5',
       flat:        'shadow-none',
     };
 

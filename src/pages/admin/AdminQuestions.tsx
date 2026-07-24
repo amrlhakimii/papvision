@@ -69,7 +69,7 @@ const QuestionForm: React.FC<{
     }
   };
 
-  const inputCls = "w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500";
+  const inputCls = "w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors";
   const labelCls = "block text-xs font-medium text-slate-400 mb-1.5";
 
   return (
@@ -205,7 +205,7 @@ const AdminQuestions: React.FC = () => {
           <h1 className="text-xl font-bold text-white">{editing === 'new' ? 'New Question' : 'Edit Question'}</h1>
           <button onClick={() => setEditing(null)} className="text-slate-400 hover:text-white"><X size={20} /></button>
         </div>
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <div className="bg-slate-900/60 backdrop-blur-sm border border-white/5 rounded-2xl p-6">
           <QuestionForm
             initial={editing === 'new' ? null : editing}
             onSave={handleSave}
@@ -238,7 +238,7 @@ const AdminQuestions: React.FC = () => {
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Search questions..."
-            className="w-full bg-slate-900 border border-slate-800 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500"
+            className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors"
           />
         </div>
         <select
@@ -251,7 +251,7 @@ const AdminQuestions: React.FC = () => {
         </select>
       </div>
 
-      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+      <div className="bg-slate-900/60 backdrop-blur-sm border border-white/5 rounded-2xl overflow-hidden">
         {loading ? (
           <div className="p-8 text-center text-slate-500 text-sm">Loading...</div>
         ) : filtered.length === 0 ? (

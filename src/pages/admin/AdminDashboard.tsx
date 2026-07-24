@@ -41,7 +41,7 @@ const diffFields = (local: Record<string, unknown>, remote: Record<string, unkno
 };
 
 const StatCard: React.FC<{ icon: React.ReactNode; label: string; value: number | string; color: string }> = ({ icon, label, value, color }) => (
-  <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+  <div className="bg-slate-900/60 backdrop-blur-sm border border-white/5 rounded-2xl p-5">
     <div className={`inline-flex p-2.5 rounded-lg mb-3 ${color}`}>{icon}</div>
     <p className="text-2xl font-bold text-white">{value}</p>
     <p className="text-sm text-slate-400 mt-0.5">{label}</p>
@@ -171,7 +171,7 @@ const AdminDashboard: React.FC = () => {
       {/* Action cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Seed */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+        <div className="bg-slate-900/60 backdrop-blur-sm border border-white/5 rounded-2xl p-5">
           <div className="flex items-start justify-between gap-3">
             <div>
               <p className="text-sm font-semibold text-white mb-1">Seed Firestore</p>
@@ -190,7 +190,7 @@ const AdminDashboard: React.FC = () => {
         </div>
 
         {/* Verify */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+        <div className="bg-slate-900/60 backdrop-blur-sm border border-white/5 rounded-2xl p-5">
           <div className="flex items-start justify-between gap-3">
             <div>
               <p className="text-sm font-semibold text-white mb-1">Verify Data</p>
@@ -211,7 +211,7 @@ const AdminDashboard: React.FC = () => {
 
       {/* Verify results */}
       {showVerify && mismatches !== null && (
-        <div className={`rounded-xl border overflow-hidden ${allGood ? 'border-green-800 bg-green-950/30' : 'border-slate-800 bg-slate-900'}`}>
+        <div className={`rounded-2xl border overflow-hidden ${allGood ? 'border-green-800 bg-green-950/30' : 'border-white/5 bg-slate-900/60 backdrop-blur-sm'}`}>
           <div className="flex items-center justify-between px-5 py-3 border-b border-inherit">
             <div className="flex items-center gap-2">
               {allGood
@@ -267,7 +267,7 @@ const AdminDashboard: React.FC = () => {
       </div>
 
       {/* Recent users */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+      <div className="bg-slate-900/60 backdrop-blur-sm border border-white/5 rounded-2xl overflow-hidden">
         <div className="px-5 py-4 border-b border-slate-800">
           <h2 className="text-sm font-semibold text-white">Recent Users</h2>
         </div>

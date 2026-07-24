@@ -3,13 +3,22 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
   body {
     @apply bg-slate-50 text-slate-700 antialiased font-sans;
     font-feature-settings: 'cv11', 'ss01';
   }
 
   h1, h2, h3, h4 {
-    @apply font-display text-slate-900 tracking-tight;
+    @apply font-display font-extrabold text-slate-900 tracking-tight;
+  }
+
+  button, a, [role="button"], summary {
+    cursor: pointer;
   }
 
   ::selection {
@@ -22,14 +31,14 @@
     @apply mb-8;
   }
   .page-header h1 {
-    @apply text-2xl font-display font-bold text-slate-900;
+    @apply text-2xl font-display font-extrabold text-slate-900 tracking-tight;
   }
   .page-header p {
     @apply text-sm text-slate-500 mt-1;
   }
 
   .stat-card {
-    @apply bg-white rounded-2xl border border-slate-100 p-5;
+    @apply bg-white/90 backdrop-blur-sm rounded-2xl border border-black/5 p-5 shadow-[0_4px_24px_rgba(0,0,0,0.06)];
   }
 
   .section-label {
@@ -37,8 +46,14 @@
   }
 }
 
-/* Scrollbar */
-::-webkit-scrollbar       { width: 5px; height: 5px; }
+/* Scrollbar — accent-tinted */
+::-webkit-scrollbar       { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { @apply bg-slate-200 rounded-full; }
-::-webkit-scrollbar-thumb:hover { @apply bg-slate-300; }
+::-webkit-scrollbar-thumb { @apply bg-brand-200 rounded-full; }
+::-webkit-scrollbar-thumb:hover { @apply bg-brand-500; }
+
+/* Motion */
+@keyframes fade-up  { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes modal-in { from { opacity: 0; transform: scale(0.97) translateY(6px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+.animate-fade-up  { animation: fade-up 0.3s ease-out; }
+.animate-modal-in { animation: modal-in 0.18s ease-out; }

@@ -136,7 +136,7 @@ const CueEditor: React.FC = () => {
                       onChange={e => updateCue(cue.id, 'title', e.target.value)}
                       onClick={e => e.stopPropagation()}
                       placeholder="Title"
-                      className="w-full bg-slate-900 border border-slate-600 rounded px-2 py-1 text-white placeholder-slate-500 mb-1 focus:outline-none focus:ring-1 focus:ring-brand-500"
+                      className="w-full bg-slate-900 border border-slate-600 rounded-lg px-2 py-1 text-white placeholder-slate-500 mb-1 focus:outline-none focus:border-brand-500 transition-colors"
                     />
                     <textarea
                       value={cue.description}
@@ -144,7 +144,7 @@ const CueEditor: React.FC = () => {
                       onClick={e => e.stopPropagation()}
                       placeholder="Description"
                       rows={3}
-                      className="w-full bg-slate-900 border border-slate-600 rounded px-2 py-1 text-white placeholder-slate-500 resize-none focus:outline-none focus:ring-1 focus:ring-brand-500"
+                      className="w-full bg-slate-900 border border-slate-600 rounded-lg px-2 py-1 text-white placeholder-slate-500 resize-none focus:outline-none focus:border-brand-500 transition-colors"
                     />
                     <button
                       onClick={e => { e.stopPropagation(); deleteCue(cue.id); }}

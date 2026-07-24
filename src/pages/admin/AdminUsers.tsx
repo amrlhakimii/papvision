@@ -69,11 +69,11 @@ const AdminUsers: React.FC = () => {
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder="Search by name or email..."
-          className="w-full bg-slate-900 border border-slate-800 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500"
+          className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors"
         />
       </div>
 
-      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+      <div className="bg-slate-900/60 backdrop-blur-sm border border-white/5 rounded-2xl overflow-hidden">
         {loading ? (
           <div className="p-8 text-center text-slate-500 text-sm">Loading users...</div>
         ) : filtered.length === 0 ? (

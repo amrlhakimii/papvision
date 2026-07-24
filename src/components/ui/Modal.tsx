@@ -57,7 +57,7 @@ export const Modal: React.FC<ModalProps> = ({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className={`bg-white rounded-2xl shadow-2xl overflow-hidden pointer-events-auto w-full flex flex-col ${sizes[size]} ${size === 'full' ? 'h-full' : 'max-h-[90vh]'}`}
+              className={`bg-white rounded-3xl border border-black/5 shadow-2xl overflow-hidden pointer-events-auto w-full flex flex-col ${sizes[size]} ${size === 'full' ? 'h-full' : 'max-h-[90vh]'}`}
             >
               {/* Header */}
               {title && (

@@ -4,18 +4,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        // #364F6B — Primary navy blue
+        // #14B8A6 — Primary teal (cervical screening awareness color)
         brand: {
-          50:  '#eef1f6',
-          100: '#d3dce8',
-          200: '#a7b9d1',
-          300: '#7a96ba',
-          400: '#4e73a3',
-          500: '#364F6B',
-          600: '#2d4259',
-          700: '#243547',
-          800: '#1b2835',
-          900: '#121b23',
+          50:  '#f0fdfa',
+          100: '#ccfbf1',
+          200: '#99f6e4',
+          300: '#5eead4',
+          400: '#2dd4bf',
+          500: '#14b8a6',
+          600: '#0d9488',
+          700: '#0f766e',
+          800: '#115e59',
+          900: '#134e4a',
+          950: '#042f2e',
         },
         // #3FC1C9 — Teal accent
         accent: {

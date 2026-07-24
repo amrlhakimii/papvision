@@ -56,7 +56,7 @@ const Dashboard: React.FC = () => {
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-2 sm:gap-4">
-        <div className="bg-white rounded-2xl border border-slate-100 p-3 sm:p-5">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-black/5 shadow-[0_4px_24px_rgba(0,0,0,0.06)] p-3 sm:p-5">
           <div className="flex items-center justify-between mb-2 sm:mb-3">
             <span className="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wide sm:tracking-widest">Competency</span>
             <div className="w-7 h-7 rounded-lg bg-brand-50 hidden sm:flex items-center justify-center">
@@ -67,7 +67,7 @@ const Dashboard: React.FC = () => {
           <p className="text-[10px] sm:text-xs text-slate-400 mt-1">Avg score</p>
         </div>
 
-        <div className="bg-white rounded-2xl border border-slate-100 p-3 sm:p-5">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-black/5 shadow-[0_4px_24px_rgba(0,0,0,0.06)] p-3 sm:p-5">
           <div className="flex items-center justify-between mb-2 sm:mb-3">
             <span className="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wide sm:tracking-widest">Slides</span>
             <div className="w-7 h-7 rounded-lg bg-accent-50 hidden sm:flex items-center justify-center">
@@ -78,7 +78,7 @@ const Dashboard: React.FC = () => {
           <p className="text-[10px] sm:text-xs text-slate-400 mt-1">Studied</p>
         </div>
 
-        <div className="bg-white rounded-2xl border border-slate-100 p-3 sm:p-5">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-black/5 shadow-[0_4px_24px_rgba(0,0,0,0.06)] p-3 sm:p-5">
           <div className="flex items-center justify-between mb-2 sm:mb-3">
             <span className="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wide sm:tracking-widest">Modules</span>
             <div className="w-7 h-7 rounded-lg bg-green-50 hidden sm:flex items-center justify-center">
@@ -94,7 +94,7 @@ const Dashboard: React.FC = () => {
       <div>
         <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4">Study Tools</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Link to="/learn" className="group bg-white rounded-2xl border border-slate-100 p-5 hover:shadow-md hover:border-brand-100 transition-all duration-200">
+          <Link to="/learn" className="group bg-white/90 backdrop-blur-sm rounded-2xl border border-black/5 shadow-[0_4px_24px_rgba(0,0,0,0.06)] p-5 hover:shadow-md hover:border-brand-100 transition-all duration-200">
             <div className="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center mb-4 group-hover:bg-brand-100 transition-colors">
               <BookOpen size={19} className="text-brand-500" />
             </div>
@@ -105,7 +105,7 @@ const Dashboard: React.FC = () => {
             </div>
           </Link>
 
-          <Link to="/quiz" className="group bg-white rounded-2xl border border-slate-100 p-5 hover:shadow-md hover:border-accent-100 transition-all duration-200">
+          <Link to="/quiz" className="group bg-white/90 backdrop-blur-sm rounded-2xl border border-black/5 shadow-[0_4px_24px_rgba(0,0,0,0.06)] p-5 hover:shadow-md hover:border-accent-100 transition-all duration-200">
             <div className="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-4 group-hover:bg-accent-100 transition-colors">
               <BrainCircuit size={19} className="text-accent-500" />
             </div>
@@ -116,7 +116,7 @@ const Dashboard: React.FC = () => {
             </div>
           </Link>
 
-          <Link to="/challenge" className="group bg-white rounded-2xl border border-slate-100 p-5 hover:shadow-md hover:border-highlight-100 transition-all duration-200">
+          <Link to="/challenge" className="group bg-white/90 backdrop-blur-sm rounded-2xl border border-black/5 shadow-[0_4px_24px_rgba(0,0,0,0.06)] p-5 hover:shadow-md hover:border-highlight-100 transition-all duration-200">
             <div className="w-10 h-10 rounded-xl bg-highlight-50 flex items-center justify-center mb-4 group-hover:bg-highlight-100 transition-colors">
               <Target size={19} className="text-highlight-500" />
             </div>
@@ -138,7 +138,7 @@ const Dashboard: React.FC = () => {
           </Link>
         </div>
 
-        <div className="bg-white rounded-2xl border border-slate-100 divide-y divide-slate-50">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-black/5 shadow-[0_4px_24px_rgba(0,0,0,0.06)] divide-y divide-slate-50">
           {categories.map((cat) => {
             const c = progress?.categories[cat.id];
             const score = c?.highestQuizScore ?? 0;

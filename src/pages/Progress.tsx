@@ -48,7 +48,7 @@ const Progress: React.FC = () => {
           { label: 'Slides Viewed',     value: totalViewed,      sub: 'Images studied',       icon: Eye,         color: 'bg-accent-50 text-accent-500' },
           { label: 'Modules Done',      value: `${completed}/5`, sub: 'Scored ≥80%',         icon: CheckCircle, color: 'bg-green-50 text-green-500' },
         ].map(s => (
-          <div key={s.label} className="bg-white rounded-2xl border border-slate-100 p-5">
+          <div key={s.label} className="bg-white/90 backdrop-blur-sm rounded-2xl border border-black/5 shadow-[0_4px_24px_rgba(0,0,0,0.06)] p-5">
             <div className={`w-9 h-9 rounded-xl ${s.color} flex items-center justify-center mb-3`}>
               <s.icon size={16} />
             </div>
@@ -64,7 +64,7 @@ const Progress: React.FC = () => {
         <div className="lg:col-span-3 space-y-3">
           <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-widest">Module Competency</h2>
 
-          <div className="bg-white rounded-2xl border border-slate-100 divide-y divide-slate-50">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-black/5 shadow-[0_4px_24px_rgba(0,0,0,0.06)] divide-y divide-slate-50">
             {categories.map(cat => {
               const cp = progress.categories[cat.id];
               const locked = !cp.unlocked;

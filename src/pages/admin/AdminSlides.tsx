@@ -43,7 +43,7 @@ const CuePlacer: React.FC<{ imageUrl: string; cues: MorphologyCue[]; onChange: (
 
   const remove = (id: string) => { onChange(cues.filter(c => c.id !== id)); if (activeId === id) setActiveId(null); };
 
-  const inputCls = "w-full bg-slate-700 border border-slate-600 rounded px-2 py-1 text-xs text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-brand-500";
+  const inputCls = "w-full bg-slate-700 border border-slate-600 rounded-lg px-2 py-1 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-brand-500 transition-colors";
 
   return (
     <div className="space-y-3">
@@ -120,7 +120,7 @@ const SlideForm: React.FC<{ initial: SlideContent | null; onSave: (s: SlideConte
     try { await onSave(form); } catch { setError('Failed to save.'); } finally { setSaving(false); }
   };
 
-  const inputCls = "w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500";
+  const inputCls = "w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors";
   const labelCls = "block text-xs font-medium text-slate-400 mb-1.5";
 
   const ListField: React.FC<{ label: string; field: 'cellularFeatures' | 'nuclearFeatures' | 'backgroundFeatures' }> = ({ label, field }) => (
@@ -220,7 +220,7 @@ const AdminSlides: React.FC = () => {
           <h1 className="text-xl font-bold text-white">{editing === 'new' ? 'New Slide' : 'Edit Slide'}</h1>
           <button onClick={() => setEditing(null)} className="text-slate-400 hover:text-white"><X size={20} /></button>
         </div>
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <div className="bg-slate-900/60 backdrop-blur-sm border border-white/5 rounded-2xl p-6">
           <SlideForm initial={editing === 'new' ? null : editing} onSave={handleSave} onCancel={() => setEditing(null)} />
         </div>
       </div>
@@ -242,7 +242,7 @@ const AdminSlides: React.FC = () => {
       <div className="flex gap-3">
         <div className="relative flex-1">
           <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
-          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search slides..." className="w-full bg-slate-900 border border-slate-800 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search slides..." className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors" />
         </div>
         <select value={filterCat} onChange={e => setFilterCat(e.target.value as CategoryId | 'all')} className="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-brand-500">
           <option value="all">All Categories</option>
@@ -250,7 +250,7 @@ const AdminSlides: React.FC = () => {
         </select>
       </div>
 
-      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+      <div className="bg-slate-900/60 backdrop-blur-sm border border-white/5 rounded-2xl overflow-hidden">
         {loading ? (
           <div className="p-8 text-center text-slate-500 text-sm">Loading...</div>
         ) : filtered.length === 0 ? (
